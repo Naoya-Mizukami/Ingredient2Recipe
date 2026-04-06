@@ -3,5 +3,9 @@ name = "ingredient2recipe"
 version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
-requires-python = ">=3.14"
-dependencies = []
+requires-python = ">=3.12,<3.13"
+dependencies = [
+    "django>=6.0.3",
+    "pandas>=3.0.2",
+    "sqlalchemy>=2.0.49",
+]
