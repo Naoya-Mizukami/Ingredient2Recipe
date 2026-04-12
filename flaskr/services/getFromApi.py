@@ -1,20 +1,24 @@
 import pandas as pd
 import requests
 import json
-import yaml
+from dotenv import load_dotenv
+import os
 from pprint import pprint
 # from flaskr.repogitories import getFromDatabase as db
 from flask import request
 
-with open('flaskr/config.yml', 'r', encoding='utf-8') as f:
-    config = yaml.safe_load(f)
-    APPLICATION_ID = config['APPLICATION_ID']
-    ACCESS_KEY = config['ACCESS_KEY']
-    CATEGORY_API_URL = config['CATEGORY_API_URL']
+# 環境変数の読み込み
+load_dotenv()
 
+APPLICATION_ID = os.getenv('APPLICATION_ID')
+ACCESS_KEY = os.getenv('ACCESS_KEY')
+CATEGORY_API_URL = os.getenv('CATEGORY_API_URL')
+BASE_URL = os.getenv('BASE_URL')
+
+# リクエストパラメータの設定
 headers = {
-    'accessKey': ACCESS_KEY,
-    'Referer': 'example.com'
+    'Origin': BASE_URL,
+    'Referer': BASE_URL + '/'
 }
 
 params = {
