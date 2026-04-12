@@ -8,6 +8,4 @@ wheels/
 
 # Virtual environments
 .venv
-
-# test sources
-test*
+.env
