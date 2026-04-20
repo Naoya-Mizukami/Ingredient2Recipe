@@ -53,6 +53,7 @@ def get_category_list() -> pd.DataFrame:
 
     # 中カテゴリ
     list_medium = []
+    parent_category_dict = {}
     for category in json_data['result']['medium']:
         list_medium.append([
                 category['parentCategoryId'], 
@@ -61,15 +62,17 @@ def get_category_list() -> pd.DataFrame:
                 str(category['parentCategoryId'])+"-"+str(category['categoryId']), 
                 category['categoryName']
             ])
+        parent_category_dict[str(category['categoryId'])] = category['parentCategoryId']
+
 
     # 小カテゴリ
     list_small = []
     for category in json_data['result']['small']:
         list_small.append([
+                parent_category_dict[str(category['parentCategoryId'])], 
                 category['parentCategoryId'], 
                 category['categoryId'], 
-                "", 
-                str(category['parentCategoryId'])+"-"+str(category['categoryId']), 
+                str(parent_category_dict[str(category['parentCategoryId'])])+"-"+str(category['parentCategoryId'])+"-"+str(category['categoryId']), 
                 category['categoryName']
             ])
 
@@ -142,4 +145,4 @@ def get_recipe_ranking(category_id: int) -> pd.DataFrame:
 def filter_by_ingredient(ingredient_name: str) -> pd.DataFrame:
     pass
 
-pprint(get_recipe_ranking(10))
+pprint(get_category_list())
