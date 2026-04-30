@@ -145,4 +145,7 @@ def get_recipe_ranking(category_id: int) -> pd.DataFrame:
 def filter_by_ingredient(ingredient_name: str) -> pd.DataFrame:
     pass
 
-pprint(get_category_list())
+
+df_category = get_category_list()
+df_category2 = df_category[['category2', 'category_name']][(df_category['category2'] != '') & (df_category['category3'] == '')]
+pprint(df_category2)
