@@ -1,13 +1,37 @@
 <!DOCTYPE html>
-<html lang="jp">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h1>開発中</h1>
-    <p>これはホームページです。</p>
-    <button onclick="location.href='/mylist'">マイリストへ</button>
-</body>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <title>Ingredient2Recipe</title>
+    </head>
+    <body>
+        <h1>カテゴリー選択</h1>
+
+        <label for="category">カテゴリー</label>
+        <select id="category" name="category_id">
+            <option value="">カテゴリーを選択してください</option>
+
+            {% for category2_id, category2_name in id_name_pairs_2 %}
+                <option value="{{ category2_id }}">
+                    {{ category2_name }}
+                </option>
+            {% endfor %}
+        </select>
+
+        <label for="sub-category">サブカテゴリー</label>
+        <select id="sub-category" name="sub_category_id">
+            <option value="">サブカテゴリーを選択してください</option>
+
+            {% for parent_category2_id, category3_id, category3_name in id_name_pairs_3 %}
+                <option
+                    value="{{ category3_id }}"
+                    data-parent-id="{{ parent_category2_id }}"
+                >
+                    {{ category3_name }}
+                </option>
+            {% endfor %}
+        </select>
+
+        <button onclick="location.href='/recipes'">レシピ出力</button>
+    </body>
 </html>
