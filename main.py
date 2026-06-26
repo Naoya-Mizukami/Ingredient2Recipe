@@ -1,6 +1,4 @@
-def main():
-    print("Hello from ingredient2recipe!")
-
+from flaskr import app
 
 if __name__ == "__main__":
-    main()
+    app.run(debug=True)

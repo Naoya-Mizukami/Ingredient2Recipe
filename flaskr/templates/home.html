@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <title>Ingredient2Recipe</title>
+        <link rel="stylesheet" href="{{ url_for('style_css') }}">
+    </head>
+    <body>
+        <h1>カテゴリー選択</h1>
+
+        <form action="{{ url_for('recipes') }}" method="get">
+            <label for="large-category">大分類</label>
+            <select id="large-category" name="category1_id" required>
+                <option value="">大分類を選択してください</option>
+
+                {% for category1_id, category1_name in id_name_pairs_1 %}
+                    <option value="{{ category1_id }}">
+                        {{ category1_name }}
+                    </option>
+                {% endfor %}
+            </select>
+
+            <label for="medium-category">中分類</label>
+            <select id="medium-category" name="category2_id" disabled>
+                <option value="">中分類を選択してください</option>
+
+                {% for parent_category1_id, category2_id, category2_name in id_name_pairs_2 %}
+                    <option
+                        value="{{ category2_id }}"
+                        data-parent-id="{{ parent_category1_id }}"
+                    >
+                        {{ category2_name }}
+                    </option>
+                {% endfor %}
+            </select>
+
+            <label for="small-category">小分類</label>
+            <select id="small-category" name="category3_id" disabled>
+                <option value="">小分類を選択してください</option>
+
+                {% for parent_category2_id, category3_id, category3_name in id_name_pairs_3 %}
+                    <option
+                        value="{{ category3_id }}"
+                        data-parent-id="{{ parent_category2_id }}"
+                    >
+                        {{ category3_name }}
+                    </option>
+                {% endfor %}
+            </select>
+
+            <button type="submit">レシピ出力</button>
+        </form>
+
+        <script src="{{ url_for('home_js') }}"></script>
+    </body>
+</html>

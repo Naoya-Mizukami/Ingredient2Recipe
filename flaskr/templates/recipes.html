@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>レシピランキング - Ingredient2Recipe</title>
+        <link rel="stylesheet" href="{{ url_for('style_css') }}">
+    </head>
+    <body>
+        <h1>レシピランキング</h1>
+
+        {% if selected_category_id %}
+            {% if recipes %}
+                <ol>
+                    {% for recipe in recipes %}
+                        <li>
+                            <h2>{{ recipe.recipe_title }}</h2>
+
+                            {% if recipe.food_image_url %}
+                                <img src="{{ recipe.food_image_url }}" alt="{{ recipe.recipe_title }}">
+                            {% endif %}
+
+                            <p>順位: {{ recipe.rank }}</p>
+                            <p>調理時間: {{ recipe.recipe_indication or '指定なし' }}</p>
+                            <p>費用: {{ recipe.recipe_cost or '指定なし' }}</p>
+
+                            {% if recipe.recipe_material %}
+                                <h3>材料</h3>
+                                <ul>
+                                    {% for material in recipe.recipe_material %}
+                                        <li>{{ material }}</li>
+                                    {% endfor %}
+                                </ul>
+                            {% endif %}
+
+                            <p>
+                                <a href="{{ recipe.recipe_url }}" target="_blank" rel="noopener noreferrer">
+                                    レシピを見る
+                                </a>
+                            </p>
+                        </li>
+                    {% endfor %}
+                </ol>
+            {% else %}
+                <p>レシピランキングが見つかりませんでした。</p>
+            {% endif %}
+        {% else %}
+            <p>サブカテゴリーが選択されていません。</p>
+        {% endif %}
+
+        <p><a href="{{ url_for('home') }}">カテゴリー選択に戻る</a></p>
+    </body>
+</html>
