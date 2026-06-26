@@ -83,9 +83,9 @@ def get_category_list() -> pd.DataFrame:
     df_small = pd.DataFrame(data=list_small, columns=columns)
 
     # すべてのカテゴリを結合
-    df_category_list = pd.concat([df_large, df_medium, df_small], ignore_index=True)
+    df_category = pd.concat([df_large, df_medium, df_small], ignore_index=True)
 
-    return df_category_list
+    return df_category
 
 
 def convert_name_to_id(category_name: str) -> int:
@@ -144,8 +144,3 @@ def get_recipe_ranking(category_id: int) -> pd.DataFrame:
 
 def filter_by_ingredient(ingredient_name: str) -> pd.DataFrame:
     pass
-
-
-df_category = get_category_list()
-df_category2 = df_category[['category2', 'category_name']][(df_category['category2'] != '') & (df_category['category3'] == '')]
-pprint(df_category2)
