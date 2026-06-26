@@ -31,6 +31,11 @@ def home():
 def home_js():
     return send_from_directory(app.template_folder, "home.js")
 
+
+@app.route("/style.css")
+def style_css():
+    return send_from_directory(app.template_folder, "style.css")
+
 @app.route("/recipes")
 def recipes():
     selected_category_id = (
