@@ -1,5 +1,5 @@
 from flaskr import app
-from flask import render_template
+from flask import render_template, send_from_directory
 import pandas as pd
 import flaskr.services.getFromApi as getFromApi
 
@@ -20,6 +20,11 @@ def home():
         id_name_pairs_2 = id_name_pairs_2,
         id_name_pairs_3 = id_name_pairs_3
     )
+
+
+@app.route("/home.js")
+def home_js():
+    return send_from_directory(app.template_folder, "home.js")
 
 @app.route("/recipes")
 def recipes():
