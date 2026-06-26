@@ -21,7 +21,7 @@
             </select>
 
             <label for="medium-category">中分類</label>
-            <select id="medium-category" name="category2_id">
+            <select id="medium-category" name="category2_id" disabled>
                 <option value="">中分類を選択してください</option>
 
                 {% for parent_category1_id, category2_id, category2_name in id_name_pairs_2 %}
@@ -35,7 +35,7 @@
             </select>
 
             <label for="small-category">小分類</label>
-            <select id="small-category" name="category3_id">
+            <select id="small-category" name="category3_id" disabled>
                 <option value="">小分類を選択してください</option>
 
                 {% for parent_category2_id, category3_id, category3_name in id_name_pairs_3 %}

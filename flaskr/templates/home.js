@@ -2,47 +2,34 @@ const largeCategorySelect = document.getElementById('large-category');
 const mediumCategorySelect = document.getElementById('medium-category');
 const smallCategorySelect = document.getElementById('small-category');
 
-const mediumCategoryOptions = Array.from(mediumCategorySelect.options);
-const smallCategoryOptions = Array.from(smallCategorySelect.options);
+const mediumCategoryPlaceholder = mediumCategorySelect.options[0].cloneNode(true);
+const smallCategoryPlaceholder = smallCategorySelect.options[0].cloneNode(true);
+const mediumCategoryOptions = Array.from(mediumCategorySelect.options).slice(1).map((option) => option.cloneNode(true));
+const smallCategoryOptions = Array.from(smallCategorySelect.options).slice(1).map((option) => option.cloneNode(true));
+
+function replaceOptions(selectElement, placeholderOption, options) {
+    selectElement.replaceChildren(placeholderOption.cloneNode(true), ...options.map((option) => option.cloneNode(true)));
+    selectElement.value = '';
+    selectElement.disabled = options.length === 0;
+}
 
 function updateMediumCategoryOptions() {
     const selectedLargeCategoryId = largeCategorySelect.value;
+    const filteredMediumOptions = selectedLargeCategoryId === ''
+        ? []
+        : mediumCategoryOptions.filter((option) => option.dataset.parentId === selectedLargeCategoryId);
 
-    mediumCategorySelect.value = '';
-    mediumCategorySelect.disabled = selectedLargeCategoryId === '';
-
-    mediumCategoryOptions.forEach((option) => {
-        if (option.value === '') {
-            option.hidden = false;
-            option.disabled = false;
-            return;
-        }
-
-        const isSameParent = option.dataset.parentId === selectedLargeCategoryId;
-        option.hidden = !isSameParent;
-        option.disabled = !isSameParent;
-    });
-
+    replaceOptions(mediumCategorySelect, mediumCategoryPlaceholder, filteredMediumOptions);
     updateSmallCategoryOptions();
 }
 
 function updateSmallCategoryOptions() {
     const selectedMediumCategoryId = mediumCategorySelect.value;
+    const filteredSmallOptions = selectedMediumCategoryId === ''
+        ? []
+        : smallCategoryOptions.filter((option) => option.dataset.parentId === selectedMediumCategoryId);
 
-    smallCategorySelect.value = '';
-    smallCategorySelect.disabled = selectedMediumCategoryId === '';
-
-    smallCategoryOptions.forEach((option) => {
-        if (option.value === '') {
-            option.hidden = false;
-            option.disabled = false;
-            return;
-        }
-
-        const isSameParent = option.dataset.parentId === selectedMediumCategoryId;
-        option.hidden = !isSameParent;
-        option.disabled = !isSameParent;
-    });
+    replaceOptions(smallCategorySelect, smallCategoryPlaceholder, filteredSmallOptions);
 }
 
 largeCategorySelect.addEventListener('change', updateMediumCategoryOptions);
